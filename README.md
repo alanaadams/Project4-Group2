@@ -1,3 +1,3 @@
-# Project4-Group3
-Project 4 - Group 3
+# Project4-Group2
+Project 4 - Group 2
 Team Members: Alana Adams, Michael Lohr, Bryce Deering
