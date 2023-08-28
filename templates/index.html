@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Price Prediction</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1, h2 {
+            margin-top: 30px;
+        }
+        img {
+            max-width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+        #predictionResult {
+            font-weight: bold;
+            font-size: 20px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Property Price Prediction</h2>
+    <form id="predictionForm">
+        <div class="form-group">
+            <label for="bedrooms">Number of Bedrooms:</label>
+            <input type="number" class="form-control" id="bedrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="bathrooms">Number of Bathrooms:</label>
+            <input type="number" class="form-control" id="bathrooms" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_living">Sqft Living:</label>
+            <input type="number" class="form-control" id="sqft_living" required>
+        </div>
+        <div class="form-group">
+            <label for="year_built">Year Built:</label>
+            <input type="number" class="form-control" id="year_built" name="yr_built" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_above">Sqft Above:</label>
+            <input type="number" class="form-control" id="sqft_above" required>
+        </div>
+        <div class="form-group">
+            <label for="grade">Grade:</label>
+            <input type="number" class="form-control" id="grade" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_living15">Sqft Living15:</label>
+            <input type="number" class="form-control" id="sqft_living15" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_lot15">Sqft Lot15:</label>
+            <input type="number" class="form-control" id="sqft_lot15" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_lot">Sqft Lot:</label>
+            <input type="number" class="form-control" id="sqft_lot" required>
+        </div>
+        <div class="form-group">
+            <label for="sqft_basement">Sqft Basement:</label>
+            <input type="number" class="form-control" id="sqft_basement" required>
+        </div>
+        <div class="form-group">
+            <label for="condition">Condition:</label>
+            <input type="number" class="form-control" id="condition" required>
+        </div>
+        <div class="form-group">
+            <label for="yr_sold">Year Sold:</label>
+            <input type="number" class="form-control" id="yr_sold" required>
+        </div>
+        <div class="form-group">
+            <label for="month_sold">Month Sold:</label>
+            <input type="number" class="form-control" id="month_sold" required>
+        </div>
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" class="form-control" id="id" required>
+        </div>        
+        <button type="button" class="btn btn-primary" onclick="predictPrice()">Predict Price</button>
+    </form>
+    <div class="mt-4" id="predictionResult"></div>
+
+    <script>
+         function predictPrice() {
+            let inputData = {
+                'bedrooms': $("#bedrooms").val(),
+                'bathrooms': $("#bathrooms").val(),
+                'sqft_living': $("#sqft_living").val(),
+                'yr_built': $("#year_built").val(),
+                'sqft_above': $("#sqft_above").val(),
+                'grade': $("#grade").val(),
+                'sqft_living15': $("#sqft_living15").val(),
+                'sqft_lot15': $("#sqft_lot15").val(),
+                'sqft_lot': $("#sqft_lot").val(),
+                'sqft_basement': $("#sqft_basement").val(),
+                'condition': $("#condition").val(),
+                'yr_sold': $("#yr_sold").val(),
+                'month_sold': $("#month_sold").val(),
+                'id': $("#id").val()
+            };
+
+            $.ajax({
+    url: '/predict',
+    method: 'POST',
+    data: JSON.stringify(inputData),
+    contentType: 'application/json',
+    success: function(data) {
+        $("#predictionResult").html("Estimated Bin: " + data.price);
+    },
+    error: function(error) {
+        console.error(error);
+        alert("There was an error processing your request. Please try again.");
+    }
+});
+
+        }
+    </script>
+<div class="container mt-5"></div>
+    <h1>Housing Price Analysis</h1>
+    
+    <h2>Housing Price Distribution</h2>
+    <img src="{{ url_for('static', filename='images/housing_price_distribution.png') }}" alt="Housing Price Distribution">
+    <p>The housing price distribution data provides valuable insights into how houses are priced within different ranges. The distribution highlights that a significant number of houses are priced in the 400,000 to 800,000 range, with the highest frequency occurring at 400,000 and 600,000. This suggests that the majority of houses in the dataset fall within this price bracket, which might be reflective of the local housing market's average or typical pricing. The presence of houses in the 100,000 to 200,000 range and the 200,000 to 400,000 range indicates the presence of more affordable housing options as well as mid-range properties.</p>
+    
+    <h2>Correlation Heatmap</h2>
+    <img src="{{ url_for('static', filename='images/correlation_heatmap.png') }}" alt="Correlation Heatmap">
+    <p>The correlation heatmap sheds light on the relationships between essential features that are often considered critical factors in determining housing prices. Positive correlations between features like "sqft_living" and "sqft_above" suggest that larger living areas tend to be associated with higher above-ground square footage. Similarly, features like "grade" and "sqft_living15" indicate that houses with a higher grade tend to have larger living areas. Interestingly, the correlation between "yr_built" (year built) and "condition" is negative, suggesting that older houses might be associated with lower conditions. This might indicate the need for renovations or updates to maintain or improve a house's condition over time.</p>
+    
+    <h2>Model RMSE Comparison</h2>
+    <img src="{{ url_for('static', filename='images/model_rmse_comparison.png') }}" alt="Model RMSE Comparison">    
+    <p>The Root Mean Squared Error (RMSE) values provide insights into the predictive accuracy of different models. In the context of housing and real estate, a lower RMSE indicates that the model's predictions are closer to the actual housing prices. The Random Forest model, with the lowest RMSE, suggests that it might be the most effective at capturing the complexity of the housing market's price fluctuations. This could be attributed to the Random Forest's ability to account for non-linear relationships between features and prices.</p>
+    <h2>Model R^2 Score Comparison</h2>
+    <img src="{{ url_for('static', filename='images/model_r2_comparison.png') }}" alt="Model R^2 Score Comparison">    
+    <p>The R-squared (R^2) values signify the proportion of variance in housing prices that can be explained by the regression models. In the context of real estate, a higher R^2 indicates that the models are better at explaining the variations in housing prices based on the given features. The higher R^2 value of the Random Forest model suggests that it can capture a larger proportion of the factors influencing housing prices. This might indicate that the Random Forest model can handle intricate interactions between features, such as location, size, and quality, that collectively contribute to housing prices.</p>
+    <h2>Conclusion</h2>
+    <p>In summary, the analysis of the provided data and models gives insights into housing price distributions, feature correlations, and predictive model performance. These insights can be valuable for real estate professionals, buyers, and sellers seeking to understand pricing trends and factors that influence housing values. The Random Forest model's strong performance might recommend its use for more accurate pricing predictions in the dynamic and multi-faceted real estate market.</p>
+</div>
+</body>
+</html>
