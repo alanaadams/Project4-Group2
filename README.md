@@ -49,6 +49,6 @@ Welcome to the official GitHub page for Project 4 by Group 2. This project aims 
 - **Engagement**: Engaging content that captivates the audience (5 points).
 
 ---
-**Project Proposal**: For a more detailed understanding of our project, check out our [Project Proposal](https://docs.google.com/document/d/11aaJE0Xezc9KbzMVungdk57z9aFXixJTesiDrbiiAy8/edit?usp=sharing).
-**Presentation**: For a more detailed walkthrough of our project, check out our [Google Presentation](https://docs.google.com/presentation/d/1uoPLtZ--Qi85bl6fBkhplk0M61xqqOZdF_-C47hG83c/edit?usp=sharing).
+- **Project Proposal**: For a more detailed understanding of our project, check out our [Project Proposal](https://docs.google.com/document/d/11aaJE0Xezc9KbzMVungdk57z9aFXixJTesiDrbiiAy8/edit?usp=sharing).
+- **Presentation**: For a more detailed walkthrough of our project, check out our [Google Presentation](https://docs.google.com/presentation/d/1uoPLtZ--Qi85bl6fBkhplk0M61xqqOZdF_-C47hG83c/edit?usp=sharing).
 
